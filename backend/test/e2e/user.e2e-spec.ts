@@ -6,6 +6,7 @@ import * as request from 'supertest';
 import * as jwt from 'jsonwebtoken';
 import { usersMock } from '../mock/data';
 import { ApiRoutes } from '../../src/constants/ApiRoutes';
+import SerializeBody from '../utils/SerializeBody';
 
 describe('Testing Users Route (e2e)', () => {
   let app: INestApplication;
@@ -73,6 +74,144 @@ describe('Testing Users Route (e2e)', () => {
       expect(body.message).toBeDefined();
       expect(body.message).toBe('Usuário já existe');
     });
+
+    describe('Testing body validations error', () => {
+      const userValidator = {
+        username: 'Test User',
+        password: '12345678A',
+      };
+      const serializeBodyCreate = new SerializeBody(userValidator);
+
+      describe('Testing field "username"', () => {
+        it('Testing if name is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('username', 1));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário precisa ser uma strig',
+          );
+        });
+
+        it('Testing if name is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.removeKey('username'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário não pode ser vazio',
+          );
+        });
+
+        it("Testing if name isn't empty", async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('username', ''));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário não pode ser vazio',
+          );
+        });
+
+        it('Testing if name have length more than 50', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.repeatChar('username', 15));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário precisa ter entre 1 e 50 caracteres',
+          );
+        });
+      });
+
+      describe('Testing field "password"', () => {
+        it('Testing if password is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('password', 1));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha precisa ser uma strig');
+        });
+
+        it('Testing if password is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.removeKey('password'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha não pode ser vazia');
+        });
+
+        it("Testing if password isn't empty", async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('password', ''));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha não pode ser vazia');
+        });
+
+        it('Testing if password have length more than 50', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.repeatChar('password', 15));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha precisa ter entre 1 e 50 caracteres',
+          );
+        });
+
+        it('Testing if password have space', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('password', 'kasd1 das'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha não pode conter espaços em branco',
+          );
+        });
+
+        it('Testing if password have at least one number', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('password', 'kasddas'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha tem que conter ao menos um número',
+          );
+        });
+
+        it('Testing if password have at least one letter', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_REGISTER)
+            .send(serializeBodyCreate.changeKeyValue('password', '12345678'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha tem que conter ao menos uma letra',
+          );
+        });
+      });
+    });
   });
 
   describe('Testing /user/login POST', () => {
@@ -118,6 +257,144 @@ describe('Testing Users Route (e2e)', () => {
       expect(body.message).toBeDefined();
       expect(body.message).toBe('Usuário ou senha incorreta');
     });
+
+    describe('Testing body validations error', () => {
+      const userValidator = {
+        username: 'Test User',
+        password: '12345678A',
+      };
+      const serializeBodyCreate = new SerializeBody(userValidator);
+
+      describe('Testing field "username"', () => {
+        it('Testing if name is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('username', 1));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário precisa ser uma strig',
+          );
+        });
+
+        it('Testing if name is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.removeKey('username'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário não pode ser vazio',
+          );
+        });
+
+        it("Testing if name isn't empty", async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('username', ''));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário não pode ser vazio',
+          );
+        });
+
+        it('Testing if name have length more than 50', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.repeatChar('username', 15));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'O nome de usuário precisa ter entre 1 e 50 caracteres',
+          );
+        });
+      });
+
+      describe('Testing field "password"', () => {
+        it('Testing if password is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('password', 1));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha precisa ser uma strig');
+        });
+
+        it('Testing if password is not a string', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.removeKey('password'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha não pode ser vazia');
+        });
+
+        it("Testing if password isn't empty", async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('password', ''));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain('A senha não pode ser vazia');
+        });
+
+        it('Testing if password have length more than 50', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.repeatChar('password', 15));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha precisa ter entre 1 e 50 caracteres',
+          );
+        });
+
+        it('Testing if password have space', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('password', 'kasd1 das'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha não pode conter espaços em branco',
+          );
+        });
+
+        it('Testing if password have at least one number', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('password', 'kasddas'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha tem que conter ao menos um número',
+          );
+        });
+
+        it('Testing if password have at least one letter', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_LOGIN)
+            .send(serializeBodyCreate.changeKeyValue('password', '12345678'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A senha tem que conter ao menos uma letra',
+          );
+        });
+      });
+    });
   });
 
   describe('Testing /user/history POST', () => {
@@ -153,6 +430,71 @@ describe('Testing Users Route (e2e)', () => {
       expect(body.conversations).toBeDefined();
       expect(Array.isArray(body.conversations)).toBeTruthy();
       expect(body.conversations).toHaveLength(1);
+    });
+
+    describe('Testing body validations error', () => {
+      describe('Testing "waxing_time" field', () => {
+        const serializeBodyCreate = new SerializeBody({
+          waxing_time: new Date(),
+        });
+
+        it('Testing when waxing_time is not a valid date', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_HISTORY)
+            .set({ Authorization: token })
+            .send(
+              serializeBodyCreate.changeKeyValue(
+                'waxing_time',
+                '2023-05-33T13:36:12.654Z',
+              ),
+            );
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A data de enceramento tem que ser uma data válida',
+          );
+        });
+
+        it('Testing if waxing_time is not a date', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_HISTORY)
+            .set({ Authorization: token })
+            .send(serializeBodyCreate.changeKeyValue('waxing_time', 1));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A data de enceramento tem que ser uma data válida',
+          );
+        });
+
+        it('Testing if waxing_time is not empty', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_HISTORY)
+            .set({ Authorization: token })
+            .send(serializeBodyCreate.changeKeyValue('waxing_time', ''));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A data de enceramento não pode ser vazia',
+          );
+        });
+
+        it('Testing if waxing_time is not undefined', async () => {
+          const { body, status } = await request(app.getHttpServer())
+            .post(ApiRoutes.USER_HISTORY)
+            .set({ Authorization: token })
+            .send(serializeBodyCreate.removeKey('waxing_time'));
+
+          expect(status).toBe(400);
+          expect(body.message).toBeDefined();
+          expect(body.message).toContain(
+            'A data de enceramento não pode ser vazia',
+          );
+        });
+      });
     });
   });
 
