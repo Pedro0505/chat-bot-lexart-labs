@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ModelNames } from 'src/constants/ModelNames';
-import { IUser } from 'src/database/models/user.model';
+import { ModelNames } from '../../../constants/ModelNames';
+import { IUser } from '../../../database/models/user.model';
 import { CreateUserDto } from './dto/UserCreate.dto';
 
 @Injectable()

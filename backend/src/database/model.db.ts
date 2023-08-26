@@ -1,6 +1,6 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ModelNames } from 'src/constants/ModelNames';
+import { ModelNames } from '../constants/ModelNames';
 import { UserSchema } from './models/user.model';
 
 export const modelForFeature = MongooseModule.forFeature([
