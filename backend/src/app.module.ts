@@ -5,12 +5,14 @@ import AuthMiddleware from './shared/middlewares/auth.middleware';
 import { ApiRoutes } from './constants/ApiRoutes';
 import { UtilsModule } from './shared/utils/utils.module';
 import { SeedModule } from './database/seeders/seed.module';
+import { AuthModule } from './shared/entities/auth/auth.module';
 
 @Module({
   imports: [
     UserModule,
     UtilsModule,
     SeedModule,
+    AuthModule,
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
   ],
   controllers: [],
