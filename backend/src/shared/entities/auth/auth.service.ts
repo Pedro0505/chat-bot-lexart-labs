@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import IPayload from './interfaces/IPayload';
-import { JwtService } from 'src/shared/utils/JwtService';
-import { PassCryptography } from 'src/shared/utils/PassCryptography';
+import { JwtService } from '../../../shared/utils/JwtService';
+import { PassCryptography } from '../../../shared/utils/PassCryptography';
 
 @Injectable()
 export class AuthService {

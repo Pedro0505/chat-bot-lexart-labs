@@ -19,6 +19,8 @@ export class JwtService {
   }
 
   public verify(authorization: string) {
-    return verify(authorization, process.env.JWT_SECRET) as IDecoded;
+    const verified = verify(authorization, process.env.JWT_SECRET) as IDecoded;
+
+    return { ...verified.tokenData, sub: verified.sub, iat: verified.iat };
   }
 }

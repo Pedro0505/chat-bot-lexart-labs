@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/UserCreate.dto';
 import { LoginUserDto } from './dto/UserLogin.dto';
-import { ApiRoutes } from 'src/constants/ApiRoutes';
+import { ApiRoutes } from '../../../constants/ApiRoutes';
 import { ConversationCreateDto } from './dto/ConversationCreate.dto';
 
 @Controller(ApiRoutes.USER)

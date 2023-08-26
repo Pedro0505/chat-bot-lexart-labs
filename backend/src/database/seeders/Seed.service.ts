@@ -1,8 +1,8 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModelNames } from 'src/constants/ModelNames';
+import { ModelNames } from '../../constants/ModelNames';
 import { Model } from 'mongoose';
-import IUser from 'src/shared/entities/user/interfaces/IUser';
+import IUser from '../../shared/entities/user/interfaces/IUser';
 import { usersData } from './data/user';
 
 @Injectable()
