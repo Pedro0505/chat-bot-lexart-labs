@@ -4,6 +4,7 @@ import Chat from './pages/chat/Chat';
 import Home from './pages/home/Home';
 import History from './pages/history/History';
 import WebRoutes from './constants/WebRoutes';
+import './style/app.css';
 
 function App() {
   return (
