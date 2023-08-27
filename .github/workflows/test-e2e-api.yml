@@ -1,0 +1,24 @@
+name: Rodando os testes automatizados da api
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  tests-api:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Verifica o repositório do Git
+        uses: actions/checkout@v3
+
+      - name: Cria a imagem
+        run: cd backend && docker-compose -f docker-compose.test.yml up --build -d
+
+      - name: Executa os testes e2e
+        run: cd backend && docker-compose -f docker-compose.test.yml exec -T blog-api-test npm run test:e2e
+
+      - name: Derruba o container
+        if: always()
+        run: cd backend && docker-compose -f docker-compose.test.yml down --rmi all --volumes --remove-orphans
