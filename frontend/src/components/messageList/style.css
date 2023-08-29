@@ -1,0 +1,50 @@
+.message-list-container {
+  max-height: 80%;
+  overflow-y: scroll;
+  padding: 20px 50px 0 50px;
+}
+
+.message-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-list-container::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+.message-list-container::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 15px;
+}
+
+@media (max-height: 790px) {
+  .message-list-container {
+    max-height: 60%;
+  }
+}
+
+@media (max-height: 450px) {
+  .message-list-container {
+    max-height: 40%;
+    padding: 20px 20px 0 20px;
+  }
+}
+
+@media (max-height: 450px) {
+  .message-list-container {
+    max-height: 30%;
+  }
+}
+
+@media (max-width: 450px) {
+  .message-list-container {
+    padding: 10px 20px 0 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .message-list-container {
+    padding: 0 20px 0 0;
+  }
+}
+
