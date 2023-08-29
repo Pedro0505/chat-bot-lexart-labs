@@ -52,6 +52,13 @@
   height: 30px;
 }
 
+.message .loan-infos-helpers-link {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
 @media (max-width: 660px) {
   .bot .message, .user .message {
     max-width: 80%;
