@@ -12,9 +12,19 @@ const password = joi
   .string()
   .min(1)
   .max(50)
-  .pattern(/^[^\s]+$/)
-  .regex(/[0-9]/)
-  .regex(/[a-zA-Z]/)
+  .custom((value, helper) => {
+    if (!/^[^\s]+$/.test(value)) {
+      return helper.message({ custom: 'A senha não pode conter espaços em branco' });
+    }
+
+    if (!/[a-zA-Z]/.test(value)) {
+      return helper.message({ custom: 'A senha tem que conter ao menos uma letra' });
+    }
+
+    if (!/[0-9]/.test(value)) {
+      return helper.message({ custom: 'A senha tem que conter ao menos um número' });
+    }
+  })
   .required()
   .messages({
     'string.base': 'A senha precisa ser uma string',
