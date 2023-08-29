@@ -10,6 +10,7 @@ import LoanInfos from '../../components/loanInfos/LoanInfos';
 import Goodbye from '../../components/goodbye/Goodbye';
 import addHistory from '../../api/user/addHistory';
 import './style.css';
+import { removeCookie } from '../../utils/handleCookies';
 
 function Chat() {
   const { addMessage, messages, handleSubmitBtnDisable, loginSuccessfully, handleEndChat } = useContext(ChatContext);
@@ -25,6 +26,7 @@ function Chat() {
       await addHistory({ waxing_time: new Date().toISOString() }, 'chat-user-token');
 
       handleEndChat(true);
+      removeCookie('chat-user-token');
     } catch (error) {
       console.log(error);
     }

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useRef, useState } from 'react';
-import InputLabel from '../input/Input';
+import Input from '../input/Input';
 import UserDto from '../../dtos/User.dto';
-import * as loginFormSchema from './validations/loginForm.validations';
+import * as loginFormSchema from '../../validations/schemas/user/loginForm.validations';
 import login from '../../api/user/login';
 import ErrorCard from '../errorCard/ErrorCard';
 import handleApiErrors from '../../utils/handleApiErrors';
@@ -66,14 +66,14 @@ function LoginForm() {
       ) : (
         <div className="login-form">
           <p className="login-form-text">To continue please login</p>
-          <InputLabel
+          <Input
             name="username"
             placeholder="Username"
             value={loginForm.username}
             error={loginFormErros.username}
             onChange={handleChange}
           />
-          <InputLabel
+          <Input
             name="password"
             placeholder="Password"
             value={loginForm.password}
