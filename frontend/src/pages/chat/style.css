@@ -1,0 +1,7 @@
+.chat-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: white;
+  height: 1px;
+  position: relative;
+}

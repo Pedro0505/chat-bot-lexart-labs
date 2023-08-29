@@ -1,0 +1,28 @@
+.login-form {
+  width: 250px;
+  margin-top: 30px;
+}
+
+.login-form .input-container {
+  margin-bottom: 15px;
+}
+
+.login-form-btn-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.login-form-submit-btn {
+  padding: 10px 30px;
+  border-radius: 3px;
+  background-color: var(--btn-main-color);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.login-form-text {
+  margin-bottom: 10px;
+}
