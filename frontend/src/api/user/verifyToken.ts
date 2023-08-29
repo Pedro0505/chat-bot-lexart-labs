@@ -3,7 +3,7 @@ import IAuthorized from '../../interfaces/IAuthorized';
 import { getCookie } from '../../utils/handleCookies';
 import handlesAxios from '../handleAxios';
 
-const getHistory = async (cookieName: string): Promise<IAuthorized> => {
+const verifyToken = async (cookieName: string): Promise<IAuthorized> => {
   const token = getCookie(cookieName);
 
   const response = await handlesAxios.get(ApiRoutes.AUTH_VERIFY, { headers: { Authorization: token } });
@@ -11,4 +11,4 @@ const getHistory = async (cookieName: string): Promise<IAuthorized> => {
   return response.data;
 };
 
-export default getHistory;
+export default verifyToken;
