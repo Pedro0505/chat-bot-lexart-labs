@@ -59,9 +59,11 @@ function Chat() {
 
       const decideBotComponent = botResponses[goodbye !== '' ? goodbye : loan];
 
-      const botResponse: IMessage = { text: decideBotComponent, sender: 'bot' };
+      if (decideBotComponent) {
+        const botResponse: IMessage = { text: decideBotComponent, sender: 'bot' };
 
-      addMessage(botResponse);
+        addMessage(botResponse);
+      }
     }
   };
 
