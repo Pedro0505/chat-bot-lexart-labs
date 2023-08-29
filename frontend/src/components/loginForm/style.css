@@ -16,17 +16,11 @@
 .login-form-submit-btn {
   padding: 10px 30px;
   border-radius: 3px;
-  background-color: #E29934;
+  background-color: var(--btn-main-color);
+  border: none;
   color: #fff;
   cursor: pointer;
-  border: 1px solid #E29934;
   margin-right: 20px;
-}
-
-.login-form-submit-btn:disabled {
-  cursor: wait;
-  background-color: #e29934b7;
-  border: 1px solid #e29934b7;
 }
 
 .login-form-text {

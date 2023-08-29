@@ -84,7 +84,7 @@ function LoginForm() {
           <ErrorCard message={apiErrors} />
           <div className="login-form-btn-container">
             <button className="login-form-submit-btn" onClick={handleSubmit}>
-              Entrar
+              Login
             </button>
           </div>
         </div>
