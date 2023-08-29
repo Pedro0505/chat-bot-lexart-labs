@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useRef, useState } from 'react';
 import Input from '../input/Input';
 import UserDto from '../../dtos/User.dto';
-import * as loginFormSchema from './validations/loginForm.validations';
+import * as loginFormSchema from '../../validations/schemas/user/loginForm.validations';
 import login from '../../api/user/login';
 import ErrorCard from '../errorCard/ErrorCard';
 import handleApiErrors from '../../utils/handleApiErrors';
