@@ -2,8 +2,8 @@ import { IsNotEmpty, IsDefined } from 'class-validator';
 import { IsValidDate } from './decorators/IsValidDate';
 
 export class ConversationCreateDto {
-  @IsNotEmpty({ message: 'A data de enceramento não pode ser vazia' })
-  @IsDefined({ message: 'A data de enceramento não pode ser vazia' })
-  @IsValidDate({ message: 'A data de enceramento tem que ser uma data válida' })
+  @IsNotEmpty({ message: 'The waxing time cannot be empty' })
+  @IsDefined({ message: 'The waxing time cannot be empty' })
+  @IsValidDate({ message: 'The waxing time must be a valid date' })
   public waxing_time: Date;
 }

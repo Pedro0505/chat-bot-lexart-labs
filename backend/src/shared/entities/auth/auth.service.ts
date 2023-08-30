@@ -27,7 +27,8 @@ export class AuthService {
   public async signIn(pass: string, dbPass: string, id: string, name: string) {
     const verify = await this.passCryptography.bcryptVerify(pass, dbPass);
 
-    if (!verify) throw new UnauthorizedException('Usuário ou senha incorreta');
+    if (!verify)
+      throw new UnauthorizedException('User or password are incorrect');
 
     const token = this.generateToken({ userId: id, username: name });
 

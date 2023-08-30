@@ -7,28 +7,28 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString({ message: 'O nome de usuário precisa ser uma strig' })
-  @IsNotEmpty({ message: 'O nome de usuário não pode ser vazio' })
-  @IsDefined({ message: 'O nome de usuário não pode ser vazio' })
+  @IsString({ message: 'Username must be a string' })
+  @IsNotEmpty({ message: 'Username cannot be empty' })
+  @IsDefined({ message: 'Username cannot be empty' })
   @Length(1, 50, {
-    message: 'O nome de usuário precisa ter entre 1 e 50 caracteres',
+    message: 'Username must be between 1 and 50 characters',
   })
   public username: string;
 
-  @IsString({ message: 'A senha precisa ser uma strig' })
-  @IsNotEmpty({ message: 'A senha não pode ser vazia' })
-  @IsDefined({ message: 'A senha não pode ser vazia' })
-  @Length(1, 50, {
-    message: 'A senha precisa ter entre 1 e 50 caracteres',
+  @IsString({ message: 'Password must be a string' })
+  @IsNotEmpty({ message: 'Password cannot be empty' })
+  @IsDefined({ message: 'Password cannot be empty' })
+  @Length(8, 50, {
+    message: 'Password must be between 8 and 50 characters',
   })
   @Matches(/^[^\s]+$/, {
-    message: 'A senha não pode conter espaços em branco',
+    message: 'Password cannot contain white spaces',
   })
   @Matches(/[0-9]/, {
-    message: 'A senha tem que conter ao menos um número',
+    message: 'Password must contain at least one number',
   })
   @Matches(/[a-zA-Z]/, {
-    message: 'A senha tem que conter ao menos uma letra',
+    message: 'Password must contain at least one letter',
   })
   public password: string;
 }
