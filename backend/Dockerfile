@@ -6,7 +6,7 @@ RUN npm i -g @nestjs/cli
 
 COPY package*.json ./
 
-COPY etc/secrets/.env .env
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 
 RUN npm install
 
