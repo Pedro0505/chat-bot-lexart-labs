@@ -21,7 +21,6 @@ export const modelForRoot = MongooseModule.forRootAsync({
         : nodeEnv === 'PROD'
         ? 'DATABASE_URL_PROD'
         : 'DATABASE_URL';
-    console.log(dbName);
     const uri = config.get<string>(dbName);
     return {
       uri,
