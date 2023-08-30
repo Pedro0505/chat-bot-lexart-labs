@@ -8,13 +8,16 @@ import handleApiErrors from '../../utils/handleApiErrors';
 import WebRoutes from '../../constants/WebRoutes';
 import register from '../../api/user/register';
 import './style.css';
+import useDocumentTitle from '../../hook/useDocumentTitle';
 
 function Register() {
   const [registerForm, setRegister] = useState({ username: '', password: '', confirmPassword: '' });
   const [apiErrors, setApiErrors] = useState('');
+  const [loading, setLoading] = useState(false);
   const [registerFormErros, setRegisterErros] = useState({ username: '', password: '', confirmPassword: '' });
   const errorRef = useRef(false);
   const navigate = useNavigate();
+  useDocumentTitle('Register');
 
   const validateRegisterInfo = (user: UserDto) => {
     const usernameSchema = userFormSchema.username.validate(user.username);
@@ -29,9 +32,11 @@ function Register() {
 
     if (usernameSchema.error || passwordSchema.error) {
       errorRef.current = true;
+      setLoading(false);
     } else if (registerForm.password !== registerForm.confirmPassword) {
       errorRef.current = true;
       errors.confirmPassword = "Passwords don't match.";
+      setLoading(false);
     } else {
       errorRef.current = false;
     }
@@ -40,6 +45,7 @@ function Register() {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     const user = new UserDto(registerForm.username, registerForm.password);
 
@@ -51,7 +57,9 @@ function Register() {
 
         navigate(WebRoutes.LOGIN);
         setApiErrors('');
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         setApiErrors(handleApiErrors(error));
         console.log(error);
       }
@@ -99,7 +107,7 @@ function Register() {
             type="password"
           />
           <ErrorCard message={apiErrors} />
-          <button className="register-submit-btn" type="submit">
+          <button className="register-submit-btn" type="submit" disabled={loading}>
             Register
           </button>
         </form>

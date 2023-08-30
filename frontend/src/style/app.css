@@ -1,6 +1,7 @@
 :root {
   --bg-color: #1A1B1C;
   --btn-main-color: #53E59C;
+  --btn-main-disable-color: #6ad39f9a;
 }
 
 * {

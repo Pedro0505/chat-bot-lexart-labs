@@ -15,6 +15,7 @@ function LoginForm() {
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [apiErrors, setApiErrors] = useState('');
   const [loginFormErros, setLoginFormErros] = useState({ username: '', password: '' });
+  const [loading, setLoading] = useState(false);
 
   const validateLoginInfo = (user: UserDto) => {
     const usernameSchema = loginFormSchema.username.validate(user.username);
@@ -22,6 +23,8 @@ function LoginForm() {
 
     if (usernameSchema.error || passwordSchema.error) {
       errorRef.current = true;
+
+      setLoading(false);
     } else {
       errorRef.current = false;
     }
@@ -33,6 +36,8 @@ function LoginForm() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+
     const user = new UserDto(loginForm.username, loginForm.password);
 
     validateLoginInfo(user);
@@ -44,7 +49,9 @@ function LoginForm() {
         handleSubmitBtnDisable(false);
         handleLoginSuccessfully(true);
         setCookie('chat-user-token', data.token);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         setApiErrors(handleApiErrors(error));
         console.log(error);
       }
@@ -83,7 +90,7 @@ function LoginForm() {
           />
           <ErrorCard message={apiErrors} />
           <div className="login-form-btn-container">
-            <button className="login-form-submit-btn" onClick={handleSubmit}>
+            <button className="login-form-submit-btn" onClick={handleSubmit} disabled={loading}>
               Login
             </button>
           </div>

@@ -23,6 +23,11 @@
   margin-right: 20px;
 }
 
+.login-form-submit-btn:disabled {
+  cursor: wait;
+  background-color: var(--btn-main-disable-color);
+}
+
 .login-form-text {
   margin-bottom: 10px;
 }

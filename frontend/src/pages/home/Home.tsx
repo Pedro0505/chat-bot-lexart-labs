@@ -2,9 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import homeImage from './assets/homeImage.svg';
 import './style.css';
+import useDocumentTitle from '../../hook/useDocumentTitle';
 
 function Home() {
   const navigator = useNavigate();
+  useDocumentTitle('Loan Helper');
 
   return (
     <main className="home-container">
