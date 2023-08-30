@@ -6,6 +6,8 @@ import History from './pages/history/History';
 import WebRoutes from './constants/WebRoutes';
 import './style/app.css';
 import { ChatProvider } from './context/chatContext/ChatContext';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         }
       />
       <Route path={WebRoutes.HISTORY} element={<History />} />
+      <Route path={WebRoutes.LOGIN} element={<Login />} />
+      <Route path={WebRoutes.REGISTER} element={<Register />} />
     </Routes>
   );
 }

@@ -1,39 +1,39 @@
 import joi from 'joi';
 
 const username = joi.string().min(1).max(50).required().messages({
-  'string.base': 'O nome de usuário precisa ser uma string',
-  'string.empty': 'O nome de usuário não pode ser vazio',
-  'string.min': 'O nome de usuário precisa ter pelo menos {#limit} caracteres',
-  'string.max': 'O nome de usuário não pode ter mais que {#limit} caracteres',
-  'any.required': 'O nome de usuário é obrigatório',
+  'string.base': 'Username needs to be a string',
+  'string.empty': 'Username cannot be empty',
+  'string.min': 'Username must be at least {#limit} characters',
+  'string.max': 'Username cannot be more than {#limit} characters',
+  'any.required': 'Username is required',
 });
 
 const password = joi
   .string()
-  .min(1)
+  .min(8)
   .max(50)
   .custom((value, helper) => {
     if (!/^[^\s]+$/.test(value)) {
-      return helper.message({ custom: 'A senha não pode conter espaços em branco' });
+      return helper.message({ custom: 'Password cannot contain whitespace' });
     }
 
     if (!/[a-zA-Z]/.test(value)) {
-      return helper.message({ custom: 'A senha tem que conter ao menos uma letra' });
+      return helper.message({ custom: 'Password must contain at least one letter' });
     }
 
     if (!/[0-9]/.test(value)) {
-      return helper.message({ custom: 'A senha tem que conter ao menos um número' });
+      return helper.message({ custom: 'Password must contain at least one number' });
     }
   })
   .required()
   .messages({
-    'string.base': 'A senha precisa ser uma string',
-    'string.empty': 'A senha não pode ser vazia',
-    'string.min': 'A senha precisa ter pelo menos {#limit} caracteres',
-    'string.max': 'A senha não pode ter mais que {#limit} caracteres',
-    'string.pattern.base': 'A senha não pode conter espaços em branco',
-    'string.pattern.regex': 'A senha tem que conter pelo menos um número',
-    'any.required': 'A senha é obrigatória',
+    'string.base': 'Password needs to be a string',
+    'string.empty': 'Password cannot be empty',
+    'string.min': 'Password must be at least {#limit} characters',
+    'string.max': 'Password cannot be more than {#limit} characters',
+    'string.pattern.base': 'Password cannot contain whitespace',
+    'string.pattern.regex': 'Password must contain at least one number',
+    'any.required': 'Password is required',
   });
 
 export { password, username };
