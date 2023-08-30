@@ -1,0 +1,28 @@
+.history-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: white;
+  display: grid;
+  grid-template-rows: 0fr 1fr;
+}
+
+.button-logout {
+  padding: 10px 20px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  background-color: var(--btn-main-color);
+}
+
+.history-table-container {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  align-items: center
+}
+
+.history-heading {
+  margin-bottom: 20px;
+}

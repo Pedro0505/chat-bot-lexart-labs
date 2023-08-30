@@ -27,7 +27,7 @@ export class UserService {
     const findUser = await this.userRepository.getByUsername(user.username);
 
     if (findUser !== null) {
-      throw new ConflictException('Usuário já existe');
+      throw new ConflictException('User already exist');
     }
 
     const newPass = await this.passCryptography.bcryptEncrypt(user.password);
@@ -48,7 +48,7 @@ export class UserService {
     const getUser = await this.userRepository.getByUsername(user.username);
 
     if (!getUser) {
-      throw new UnauthorizedException('Usuário não cadastrado');
+      throw new UnauthorizedException('Unregistered user');
     }
 
     const token = await this.authService.signIn(

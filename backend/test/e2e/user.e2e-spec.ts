@@ -72,7 +72,7 @@ describe('Testing Users Route (e2e)', () => {
 
       expect(status).toBe(409);
       expect(body.message).toBeDefined();
-      expect(body.message).toBe('Usuário já existe');
+      expect(body.message).toBe('User already exist');
     });
 
     describe('Testing body validations error', () => {
@@ -90,9 +90,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário precisa ser uma strig',
-          );
+          expect(body.message).toContain('Username must be a string');
         });
 
         it('Testing if name is not a string', async () => {
@@ -102,9 +100,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário não pode ser vazio',
-          );
+          expect(body.message).toContain('Username cannot be empty');
         });
 
         it("Testing if name isn't empty", async () => {
@@ -114,9 +110,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário não pode ser vazio',
-          );
+          expect(body.message).toContain('Username cannot be empty');
         });
 
         it('Testing if name have length more than 50', async () => {
@@ -127,7 +121,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'O nome de usuário precisa ter entre 1 e 50 caracteres',
+            'Username must be between 1 and 50 characters',
           );
         });
       });
@@ -140,7 +134,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha precisa ser uma strig');
+          expect(body.message).toContain('Password must be a string');
         });
 
         it('Testing if password is not a string', async () => {
@@ -150,7 +144,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha não pode ser vazia');
+          expect(body.message).toContain('Password cannot be empty');
         });
 
         it("Testing if password isn't empty", async () => {
@@ -160,7 +154,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha não pode ser vazia');
+          expect(body.message).toContain('Password cannot be empty');
         });
 
         it('Testing if password have length more than 50', async () => {
@@ -171,7 +165,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha precisa ter entre 1 e 50 caracteres',
+            'Password must be between 8 and 50 characters',
           );
         });
 
@@ -183,7 +177,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha não pode conter espaços em branco',
+            'Password cannot contain white spaces',
           );
         });
 
@@ -195,7 +189,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha tem que conter ao menos um número',
+            'Password must contain at least one number',
           );
         });
 
@@ -207,7 +201,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha tem que conter ao menos uma letra',
+            'Password must contain at least one letter',
           );
         });
       });
@@ -245,7 +239,7 @@ describe('Testing Users Route (e2e)', () => {
 
       expect(status).toBe(401);
       expect(body.message).toBeDefined();
-      expect(body.message).toBe('Usuário não cadastrado');
+      expect(body.message).toBe('Unregistered user');
     });
 
     it('Testing when trying to login a user using wrong password', async () => {
@@ -255,7 +249,7 @@ describe('Testing Users Route (e2e)', () => {
 
       expect(status).toBe(401);
       expect(body.message).toBeDefined();
-      expect(body.message).toBe('Usuário ou senha incorreta');
+      expect(body.message).toBe('User or password are incorrect');
     });
 
     describe('Testing body validations error', () => {
@@ -273,9 +267,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário precisa ser uma strig',
-          );
+          expect(body.message).toContain('Username must be a string');
         });
 
         it('Testing if name is not a string', async () => {
@@ -285,9 +277,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário não pode ser vazio',
-          );
+          expect(body.message).toContain('Username cannot be empty');
         });
 
         it("Testing if name isn't empty", async () => {
@@ -297,9 +287,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'O nome de usuário não pode ser vazio',
-          );
+          expect(body.message).toContain('Username cannot be empty');
         });
 
         it('Testing if name have length more than 50', async () => {
@@ -310,7 +298,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'O nome de usuário precisa ter entre 1 e 50 caracteres',
+            'Username must be between 1 and 50 characters',
           );
         });
       });
@@ -323,7 +311,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha precisa ser uma strig');
+          expect(body.message).toContain('Password must be a string');
         });
 
         it('Testing if password is not a string', async () => {
@@ -333,7 +321,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha não pode ser vazia');
+          expect(body.message).toContain('Password cannot be empty');
         });
 
         it("Testing if password isn't empty", async () => {
@@ -343,7 +331,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain('A senha não pode ser vazia');
+          expect(body.message).toContain('Password cannot be empty');
         });
 
         it('Testing if password have length more than 50', async () => {
@@ -354,7 +342,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha precisa ter entre 1 e 50 caracteres',
+            'Password must be between 8 and 50 characters',
           );
         });
 
@@ -366,7 +354,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha não pode conter espaços em branco',
+            'Password cannot contain white spaces',
           );
         });
 
@@ -378,7 +366,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha tem que conter ao menos um número',
+            'Password must contain at least one number',
           );
         });
 
@@ -390,7 +378,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A senha tem que conter ao menos uma letra',
+            'Password must contain at least one letter',
           );
         });
       });
@@ -452,7 +440,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A data de enceramento tem que ser uma data válida',
+            'The waxing time must be a valid date',
           );
         });
 
@@ -465,7 +453,7 @@ describe('Testing Users Route (e2e)', () => {
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
           expect(body.message).toContain(
-            'A data de enceramento tem que ser uma data válida',
+            'The waxing time must be a valid date',
           );
         });
 
@@ -477,9 +465,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'A data de enceramento não pode ser vazia',
-          );
+          expect(body.message).toContain('The waxing time cannot be empty');
         });
 
         it('Testing if waxing_time is not undefined', async () => {
@@ -490,9 +476,7 @@ describe('Testing Users Route (e2e)', () => {
 
           expect(status).toBe(400);
           expect(body.message).toBeDefined();
-          expect(body.message).toContain(
-            'A data de enceramento não pode ser vazia',
-          );
+          expect(body.message).toContain('The waxing time cannot be empty');
         });
       });
     });

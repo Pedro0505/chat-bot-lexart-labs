@@ -1,0 +1,14 @@
+.history-table {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 20px;
+}
+
+.history-table-row span {
+  padding: 10px;
+}
+
+.history-table-row {
+  margin: 10px;
+}
