@@ -15,7 +15,13 @@ export const modelForRoot = MongooseModule.forRootAsync({
   inject: [ConfigService],
   useFactory: async (config: ConfigService) => {
     const nodeEnv = config.get<string>('NODE_ENV');
-    const dbName = nodeEnv === 'TEST' ? 'DATABASE_URL_TEST' : 'DATABASE_URL';
+    const dbName =
+      nodeEnv === 'TEST'
+        ? 'DATABASE_URL_TEST'
+        : nodeEnv === 'PROD'
+        ? 'DATABASE_URL_PROD'
+        : 'DATABASE_URL';
+    console.log(dbName);
     const uri = config.get<string>(dbName);
     return {
       uri,
