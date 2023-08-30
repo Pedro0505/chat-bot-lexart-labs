@@ -9,18 +9,23 @@ import WebRoutes from '../../constants/WebRoutes';
 import { removeCookie } from '../../utils/handleCookies';
 import HistoryTable from '../../components/historyTable/HistoryTable';
 import useDocumentTitle from '../../hook/useDocumentTitle';
+import Loading from '../../components/loading/Loading';
 
 function History() {
   const [history, setHistory] = useState<IHistory[]>([]);
+  const [loading, setLoading] = useState(false);
   const navigator = useNavigate();
   useTokenRedirect(WebRoutes.LOGIN, WebRoutes.HISTORY);
   useDocumentTitle('History');
 
   const fetchHistory = async () => {
+    setLoading(true);
+
     try {
       const historyResponse = await getHistory();
 
       setHistory(historyResponse);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +51,7 @@ function History() {
       </Header>
       <div className="history-table-container">
         <h1 className="history-heading">History</h1>
-        <HistoryTable history={history} />
+        {loading ? <Loading /> : <HistoryTable history={history} />}
       </div>
     </div>
   );
