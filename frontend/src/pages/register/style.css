@@ -49,3 +49,8 @@
   cursor: pointer;
   margin-right: 20px;
 }
+
+.register-submit-btn:disabled {
+  cursor: wait;
+  background-color: var(--btn-main-disable-color);
+}

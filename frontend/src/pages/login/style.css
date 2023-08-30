@@ -49,3 +49,8 @@
   cursor: pointer;
   margin-right: 20px;
 }
+
+.login-submit-btn:disabled {
+  cursor: wait;
+  background-color: var(--btn-main-disable-color);
+}

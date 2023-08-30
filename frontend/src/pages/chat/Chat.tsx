@@ -11,9 +11,11 @@ import Goodbye from '../../components/goodbye/Goodbye';
 import addHistory from '../../api/user/addHistory';
 import './style.css';
 import { removeCookie } from '../../utils/handleCookies';
+import useDocumentTitle from '../../hook/useDocumentTitle';
 
 function Chat() {
   const { addMessage, messages, handleSubmitBtnDisable, loginSuccessfully, handleEndChat } = useContext(ChatContext);
+  useDocumentTitle('Chat');
 
   const botResponses: Record<string, JSX.Element> = {
     goodbye: <Goodbye />,

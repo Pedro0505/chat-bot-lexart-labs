@@ -8,11 +8,13 @@ import useTokenRedirect from '../../hook/useTokenRedirect';
 import WebRoutes from '../../constants/WebRoutes';
 import { removeCookie } from '../../utils/handleCookies';
 import HistoryTable from '../../components/historyTable/HistoryTable';
+import useDocumentTitle from '../../hook/useDocumentTitle';
 
 function History() {
   const [history, setHistory] = useState<IHistory[]>([]);
   const navigator = useNavigate();
   useTokenRedirect(WebRoutes.LOGIN, WebRoutes.HISTORY);
+  useDocumentTitle('History');
 
   const fetchHistory = async () => {
     try {

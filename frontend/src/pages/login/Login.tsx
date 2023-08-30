@@ -9,13 +9,16 @@ import { setCookie } from '../../utils/handleCookies';
 import handleApiErrors from '../../utils/handleApiErrors';
 import WebRoutes from '../../constants/WebRoutes';
 import './style.css';
+import useDocumentTitle from '../../hook/useDocumentTitle';
 
 function Login() {
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [apiErrors, setApiErrors] = useState('');
   const [loginFormErros, setLoginFormErros] = useState({ username: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const errorRef = useRef(false);
   const navigate = useNavigate();
+  useDocumentTitle('Login');
 
   const validateLoginInfo = (user: UserDto) => {
     const usernameSchema = loginFormSchema.username.validate(user.username);
@@ -23,6 +26,8 @@ function Login() {
 
     if (usernameSchema.error || passwordSchema.error) {
       errorRef.current = true;
+
+      setLoading(false);
     } else {
       errorRef.current = false;
     }
@@ -34,6 +39,7 @@ function Login() {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     const user = new UserDto(loginForm.username, loginForm.password);
 
@@ -45,8 +51,10 @@ function Login() {
 
         setCookie('user-session', data.token);
         navigate(WebRoutes.HISTORY);
+        setLoading(false);
       } catch (error) {
         setApiErrors(handleApiErrors(error));
+        setLoading(false);
         console.log(error);
       }
     }
@@ -88,7 +96,7 @@ function Login() {
           <p className="login-form-register-message">
             {"Don't"} have an account? <Link to={WebRoutes.REGISTER}>Register</Link>
           </p>
-          <button className="login-submit-btn" type="submit">
+          <button className="login-submit-btn" type="submit" disabled={loading}>
             Login
           </button>
         </form>
