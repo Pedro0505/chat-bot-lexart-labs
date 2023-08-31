@@ -1,9 +1,9 @@
 version: '3.9'
 
 services:
-  blog-api-db-test:
+  chat-mongo-test:
     image: mongo:5.0.7
-    container_name: blog-api-db-test
+    container_name: chat-mongo-test
     restart: always
     healthcheck:
       test: echo 'db.runCommand({serverStatus:1}).ok' | mongo --quiet | grep 1
@@ -15,13 +15,13 @@ services:
     ports:
       - 27018:27017
 
-  blog-api-test:
+  chat-api-test:
     build:
       context: .
       dockerfile: Dockerfile.test
     depends_on:
-      blog-api-db-test:
+      chat-mongo-test:
         condition: service_healthy
     environment:
-      - DATABASE_URL_TEST=mongodb://blog-api-db-test:27017/blog-test
+      - DATABASE_URL_TEST=mongodb://chat-mongo-test:27017/chat-test
       - NODE_ENV=TEST
