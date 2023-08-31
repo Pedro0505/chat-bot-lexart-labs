@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  chat-mongo-dev:
+    container_name: chat-mongo-dev
+    image: mongo:5.0.7
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo --quiet | grep 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE
+    ports:
+      - 27017:27017
+    networks:
+      - main-network
+
+  chat-api-dev:
+    container_name: chat-api-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    depends_on:
+      chat-mongo-dev:
+        condition: service_healthy
+    ports:
+      - 3001:3001
+    environment:
+      - DATABASE_URL=mongodb://chat-mongo-dev:27017/blog
+      - PORT_API=3001
+      - NODE_ENV=DEV
+      - JWT_SECRET=secret
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    driver: bridge
