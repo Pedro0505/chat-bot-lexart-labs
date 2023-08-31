@@ -22,6 +22,13 @@ function MessageInput({ onSendMessage }: MessageInputProps) {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   return (
     <div className="message-input-container">
       {endChat ? (
@@ -35,7 +42,13 @@ function MessageInput({ onSendMessage }: MessageInputProps) {
         </button>
       ) : (
         <div className="message-input-content">
-          <input type="text" placeholder="Digite sua mensagem..." value={input} onChange={handleInputChange} />
+          <input
+            type="text"
+            placeholder="Digite sua mensagem..."
+            value={input}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+          />
           {!submitBtnDisable && (
             <button onClick={handleSendMessage} className="message-input-send">
               <RiSendPlane2Fill />

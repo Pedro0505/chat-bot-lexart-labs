@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useContext, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../input/Input';
 import UserDto from '../../dtos/User.dto';
 import * as loginFormSchema from '../../validations/schemas/user/loginForm.validations';
@@ -8,6 +9,7 @@ import handleApiErrors from '../../utils/handleApiErrors';
 import './style.css';
 import { ChatContext } from '../../context/chatContext/ChatContext';
 import { setCookie } from '../../utils/handleCookies';
+import WebRoutes from '../../constants/WebRoutes';
 
 function LoginForm() {
   const errorRef = useRef(false);
@@ -89,6 +91,9 @@ function LoginForm() {
             type="password"
           />
           <ErrorCard message={apiErrors} />
+          <p className="login-form-register-message">
+            {"Don't"} have an account? <Link to={WebRoutes.REGISTER}>Register</Link>
+          </p>
           <div className="login-form-btn-container">
             <button className="login-form-submit-btn" onClick={handleSubmit} disabled={loading}>
               Login
